@@ -1,12 +1,24 @@
 const express = require('express');
 const router = express.Router();
+const { getAllProducts, getProduct } = require('../database/products')
 
-router.get('/', (req, res) => {
-    res.send("Get all products");
+router.get('/', async (req, res)  => {
+
+    const products = await getAllProducts();
+    res.send({status: 200, data: products});
 })
 
-router.get('/:productId', (req, res) => {
-    res.send(`Get product ${req.params.productId}`)
+router.get('/:productId', async (req, res) => {
+   try {
+    const product = await getProduct(req.params.productId);
+    if(!product) {
+        res.status(404).send({status: 404, error: "Product not found"});
+        return
+    }
+    res.send({status: 200, data: product});
+   } catch (e) {
+    res.status(401).send({status: "FAILED", error: e.message})
+   }
 })
 
 module.exports = router;
