@@ -9,12 +9,7 @@ app.use(bodyParser.json());
 app.use('/products', productRoutes)
 app.use('/orders', orderRoutes)
 
-app.get('/', (req, res) => {
-    res.send("Home page is available")
-})
-
 app.listen(PORT, (req, res) => {
-   console.log(`Api listening at ${PORT}`)
 })
 
 
