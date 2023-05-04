@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { getAllProducts, getProduct } = require('../database/products')
+const { getAllProducts, getProduct } = require('../database/products');
 
 router.get('/', async (req, res)  => {
 
     const products = await getAllProducts();
     res.send({status: 200, data: products});
+
 })
 
 router.get('/:productId', async (req, res) => {
